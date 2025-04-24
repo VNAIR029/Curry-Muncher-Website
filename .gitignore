@@ -1,0 +1,55 @@
+# ┌─────────────── Node ────────────────┐
+# dependencies
+node_modules/
+
+# lock files (if you ever switch managers)
+# (you probably want to commit your active lockfile instead)
+yarn.lock
+npm-shrinkwrap.json
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+pnpm-debug.log.*
+
+
+# ┌──────────── Next.js / Vercel ────────────┐
+.next/
+out/
+
+# Vercel build/output caches (if you ever use them)
+.vercel/
+.cache/
+
+# ┌──────────── Environment ────────────┐
+# local env files (never commit secrets!)
+.env*
+!.env.example
+
+# ┌─────────── TypeScript / Build ───────────┐
+# incremental builds
+*.tsbuildinfo
+
+# coverage reports
+coverage/
+
+# ┌──────────── Editors & OS ────────────┐
+# VSCode
+.vscode/
+
+# JetBrains
+.idea/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim swap files
+.*.swp
