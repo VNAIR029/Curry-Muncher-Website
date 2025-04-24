@@ -12,7 +12,7 @@ export function Sidebar() {
   }
 
   return (
-    <div className="w-64 bg-[#22c55e] text-white flex flex-col h-full">
+    <div className="w-64 bg-green-gradient text-white flex flex-col h-full">
       <div className="p-4 flex items-center gap-2 border-b border-[#16a34a]">
         <GraduationCap className="w-6 h-6" />
         <span className="font-semibold text-lg">ApprenticeConnect</span>
@@ -23,8 +23,10 @@ export function Sidebar() {
         <nav className="space-y-1">
           <Link
             href="/"
-            className={`flex items-center gap-3 px-4 py-2 rounded-md text-white ${
-              isActive("/") ? "bg-[#16a34a]" : "hover:bg-[#16a34a] transition-colors"
+            className={`flex items-center gap-3 px-4 py-3 rounded-md text-white transition-all duration-200 ${
+              isActive("/") 
+                ? "bg-green-gradient-hover scale-105" 
+                : "hover:bg-green-gradient-hover hover:scale-105 active:scale-95"
             }`}
           >
             <Home className="w-5 h-5" />
@@ -32,8 +34,10 @@ export function Sidebar() {
           </Link>
           <Link
             href="/mentors"
-            className={`flex items-center gap-3 px-4 py-2 rounded-md text-white ${
-              isActive("/mentors") ? "bg-[#16a34a]" : "hover:bg-[#16a34a] transition-colors"
+            className={`flex items-center gap-3 px-4 py-3 rounded-md text-white transition-all duration-200 ${
+              isActive("/mentors") 
+                ? "bg-green-gradient-hover scale-105" 
+                : "hover:bg-green-gradient-hover hover:scale-105 active:scale-95"
             }`}
           >
             <Users className="w-5 h-5" />
@@ -41,8 +45,10 @@ export function Sidebar() {
           </Link>
           <Link
             href="/courses"
-            className={`flex items-center gap-3 px-4 py-2 rounded-md text-white ${
-              isActive("/courses") ? "bg-[#16a34a]" : "hover:bg-[#16a34a] transition-colors"
+            className={`flex items-center gap-3 px-4 py-3 rounded-md text-white transition-all duration-200 ${
+              isActive("/courses") 
+                ? "bg-green-gradient-hover scale-105" 
+                : "hover:bg-green-gradient-hover hover:scale-105 active:scale-95"
             }`}
           >
             <BookOpen className="w-5 h-5" />
@@ -50,8 +56,10 @@ export function Sidebar() {
           </Link>
           <Link
             href="/jobs"
-            className={`flex items-center gap-3 px-4 py-2 rounded-md text-white ${
-              isActive("/jobs") ? "bg-[#16a34a]" : "hover:bg-[#16a34a] transition-colors"
+            className={`flex items-center gap-3 px-4 py-3 rounded-md text-white transition-all duration-200 ${
+              isActive("/jobs") 
+                ? "bg-green-gradient-hover scale-105" 
+                : "hover:bg-green-gradient-hover hover:scale-105 active:scale-95"
             }`}
           >
             <Briefcase className="w-5 h-5" />
@@ -59,8 +67,10 @@ export function Sidebar() {
           </Link>
           <Link
             href="/calendar"
-            className={`flex items-center gap-3 px-4 py-2 rounded-md text-white ${
-              isActive("/calendar") ? "bg-[#16a34a]" : "hover:bg-[#16a34a] transition-colors"
+            className={`flex items-center gap-3 px-4 py-3 rounded-md text-white transition-all duration-200 ${
+              isActive("/calendar") 
+                ? "bg-green-gradient-hover scale-105" 
+                : "hover:bg-green-gradient-hover hover:scale-105 active:scale-95"
             }`}
           >
             <Calendar className="w-5 h-5" />
@@ -72,8 +82,10 @@ export function Sidebar() {
         <nav className="space-y-1">
           <Link
             href="/resources"
-            className={`flex items-center gap-3 px-4 py-2 rounded-md text-white ${
-              isActive("/resources") ? "bg-[#16a34a]" : "hover:bg-[#16a34a] transition-colors"
+            className={`flex items-center gap-3 px-4 py-3 rounded-md text-white transition-all duration-200 ${
+              isActive("/resources") 
+                ? "bg-green-gradient-hover scale-105" 
+                : "hover:bg-green-gradient-hover hover:scale-105 active:scale-95"
             }`}
           >
             <Layers className="w-5 h-5" />
@@ -81,8 +93,10 @@ export function Sidebar() {
           </Link>
           <Link
             href="/notes"
-            className={`flex items-center gap-3 px-4 py-2 rounded-md text-white ${
-              isActive("/notes") ? "bg-[#16a34a]" : "hover:bg-[#16a34a] transition-colors"
+            className={`flex items-center gap-3 px-4 py-3 rounded-md text-white transition-all duration-200 ${
+              isActive("/notes") 
+                ? "bg-green-gradient-hover scale-105" 
+                : "hover:bg-green-gradient-hover hover:scale-105 active:scale-95"
             }`}
           >
             <Mic className="w-5 h-5" />
@@ -94,8 +108,10 @@ export function Sidebar() {
         <nav className="space-y-1">
           <Link
             href="/profile"
-            className={`flex items-center gap-3 px-4 py-2 rounded-md text-white ${
-              isActive("/profile") ? "bg-[#16a34a]" : "hover:bg-[#16a34a] transition-colors"
+            className={`flex items-center gap-3 px-4 py-3 rounded-md text-white transition-all duration-200 ${
+              isActive("/profile") 
+                ? "bg-green-gradient-hover scale-105" 
+                : "hover:bg-green-gradient-hover hover:scale-105 active:scale-95"
             }`}
           >
             <User className="w-5 h-5" />
@@ -103,8 +119,10 @@ export function Sidebar() {
           </Link>
           <Link
             href="/settings"
-            className={`flex items-center gap-3 px-4 py-2 rounded-md text-white ${
-              isActive("/settings") ? "bg-[#16a34a]" : "hover:bg-[#16a34a] transition-colors"
+            className={`flex items-center gap-3 px-4 py-3 rounded-md text-white transition-all duration-200 ${
+              isActive("/settings") 
+                ? "bg-green-gradient-hover scale-105" 
+                : "hover:bg-green-gradient-hover hover:scale-105 active:scale-95"
             }`}
           >
             <Settings className="w-5 h-5" />

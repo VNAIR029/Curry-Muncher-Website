@@ -1,15 +1,13 @@
-import type React from "react"
-import "@/app/globals.css"
+import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Sidebar } from "@/components/sidebar"
+import "./globals.css"
+import { Layout } from "@/components/layout"
 
 const inter = Inter({ subsets: ["latin"] })
 
-export const metadata = {
-  title: "ApprenticeConnect",
-  description: "Connecting Indian Engineering students with blue collar job opportunities",
-    generator: 'v0.dev'
+export const metadata: Metadata = {
+  title: "Apprentice Connect",
+  description: "Connect with mentors and find apprenticeship opportunities",
 }
 
 export default function RootLayout({
@@ -20,12 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
-          <div className="flex h-screen bg-[#f8f9fa]">
-            <Sidebar />
-            <div className="flex-1 overflow-auto">{children}</div>
-          </div>
-        </ThemeProvider>
+        <Layout>
+          {children}
+        </Layout>
       </body>
     </html>
   )

@@ -1,5 +1,8 @@
+"use client"
+
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -132,20 +135,38 @@ const recommendedCourses = [
 ]
 
 export default function CoursesPage() {
+  const [searchQuery, setSearchQuery] = useState("")
+  const [activeTab, setActiveTab] = useState("all")
+
+  const filteredCourses = courses.filter((course) => {
+    const matchesSearch = searchQuery === "" || 
+      course.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      course.instructor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      course.description.toLowerCase().includes(searchQuery.toLowerCase())
+
+    const matchesTab = activeTab === "all" || 
+      (activeTab === "inprogress" && course.progress > 0) ||
+      (activeTab === "recommended" && recommendedCourses.some(rc => rc.title === course.title))
+
+    return matchesSearch && matchesTab
+  })
+
   return (
     <>
       {/* Header */}
       <div className="bg-[#22c55e] text-white p-8">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-3xl font-bold">Skill Development Courses</h1>
-          <p className="mt-2 text-green-100">Learn practical skills that employers are looking for</p>
+          <h1 className="text-3xl font-bold">Enhance Your Skills</h1>
+          <p className="mt-2 text-green-100">Discover courses to advance your career in skilled trades</p>
 
           <div className="flex flex-col md:flex-row gap-4 mt-6">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
               <Input
-                placeholder="Search courses by title or skill"
+                placeholder="Search by course title, instructor, or topic"
                 className="pl-9 bg-white border-none shadow-sm w-full"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             <Button variant="outline" className="gap-2 text-white border-white hover:bg-[#16a34a]">
@@ -165,7 +186,7 @@ export default function CoursesPage() {
           </div>
         </div>
 
-        <Tabs defaultValue="all" className="space-y-6">
+        <Tabs defaultValue="all" className="space-y-6" onValueChange={setActiveTab}>
           <TabsList className="bg-[#f0fdf4] p-1">
             <TabsTrigger value="all" className="data-[state=active]:bg-[#22c55e] data-[state=active]:text-white">
               All Courses
@@ -183,15 +204,15 @@ export default function CoursesPage() {
 
           <TabsContent value="all" className="space-y-4">
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {courses.map((course) => (
+              {filteredCourses.map((course) => (
                 <Card key={course.title} className="border-none shadow-sm hover:shadow-md transition-all">
                   <div className="aspect-video bg-[#f0fdf4] relative">
                     <div className="absolute inset-0 flex items-center justify-center">
                       <PlayCircle className="w-12 h-12 text-[#22c55e]" />
                     </div>
                   </div>
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-4">
                       <Badge className="bg-[#f0fdf4] text-[#22c55e] hover:bg-[#dcfce7] border-[#bbf7d0]">
                         {course.level}
                       </Badge>
@@ -200,11 +221,9 @@ export default function CoursesPage() {
                         {course.duration}
                       </div>
                     </div>
-                    <CardTitle className="text-xl">{course.title}</CardTitle>
-                    <CardDescription>{course.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center gap-2">
+                    <h3 className="text-xl font-semibold mb-2">{course.title}</h3>
+                    <p className="text-sm text-gray-500 mb-4">{course.description}</p>
+                    <div className="flex items-center gap-2 mb-4">
                       <Avatar className="w-6 h-6">
                         <AvatarImage src={course.instructor.avatar} alt={course.instructor.name} />
                         <AvatarFallback className="bg-[#f0fdf4] text-[#22c55e]">
@@ -213,35 +232,34 @@ export default function CoursesPage() {
                       </Avatar>
                       <span className="text-sm font-medium">{course.instructor.name}</span>
                     </div>
-                    <div className="mt-4 space-y-2">
+                    <div className="space-y-2 mb-4">
                       <div className="flex items-center justify-between text-sm">
                         <span>Course Progress</span>
                         <span className="font-medium text-[#22c55e]">{course.progress}%</span>
                       </div>
                       <Progress
                         value={course.progress}
-                        className="h-2 bg-[#f0fdf4]"
-                        indicatorClassName="bg-[#22c55e]"
+                        className="h-2 bg-[#f0fdf4] [&>div]:bg-[#22c55e]"
                       />
                     </div>
-                  </CardContent>
-                  <CardFooter className="flex justify-between">
-                    <div className="flex items-center text-sm text-gray-500">
-                      <Users className="w-4 h-4 mr-1 text-[#22c55e]" />
-                      {course.students} students
+                    <div className="flex justify-between items-center pt-4 border-t">
+                      <div className="flex items-center text-sm text-gray-500">
+                        <Users className="w-4 h-4 mr-1" />
+                        {course.students} students
+                      </div>
+                      <Button variant="outline" className="text-[#22c55e] border-[#22c55e] hover:bg-[#f0fdf4]">
+                        Continue
+                      </Button>
                     </div>
-                    <Button className="bg-[#22c55e] hover:bg-[#16a34a] text-white">
-                      {course.progress > 0 ? "Continue" : "Start Learning"}
-                    </Button>
-                  </CardFooter>
+                  </CardContent>
                 </Card>
               ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="inprogress">
+          <TabsContent value="inprogress" className="space-y-4">
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {courses
+              {filteredCourses
                 .filter((course) => course.progress > 0)
                 .map((course) => (
                   <Card key={course.title} className="border-none shadow-sm hover:shadow-md transition-all">
@@ -250,8 +268,8 @@ export default function CoursesPage() {
                         <PlayCircle className="w-12 h-12 text-[#22c55e]" />
                       </div>
                     </div>
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-4">
                         <Badge className="bg-[#f0fdf4] text-[#22c55e] hover:bg-[#dcfce7] border-[#bbf7d0]">
                           {course.level}
                         </Badge>
@@ -260,31 +278,43 @@ export default function CoursesPage() {
                           {course.duration}
                         </div>
                       </div>
-                      <CardTitle className="text-xl">{course.title}</CardTitle>
-                      <CardDescription>{course.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="mt-2 space-y-2">
+                      <h3 className="text-xl font-semibold mb-2">{course.title}</h3>
+                      <p className="text-sm text-gray-500 mb-4">{course.description}</p>
+                      <div className="flex items-center gap-2 mb-4">
+                        <Avatar className="w-6 h-6">
+                          <AvatarImage src={course.instructor.avatar} alt={course.instructor.name} />
+                          <AvatarFallback className="bg-[#f0fdf4] text-[#22c55e]">
+                            {course.instructor.initials}
+                          </AvatarFallback>
+                        </Avatar>
+                        <span className="text-sm font-medium">{course.instructor.name}</span>
+                      </div>
+                      <div className="space-y-2 mb-4">
                         <div className="flex items-center justify-between text-sm">
                           <span>Course Progress</span>
                           <span className="font-medium text-[#22c55e]">{course.progress}%</span>
                         </div>
                         <Progress
                           value={course.progress}
-                          className="h-2 bg-[#f0fdf4]"
-                          indicatorClassName="bg-[#22c55e]"
+                          className="h-2 bg-[#f0fdf4] [&>div]:bg-[#22c55e]"
                         />
                       </div>
+                      <div className="flex justify-between items-center pt-4 border-t">
+                        <div className="flex items-center text-sm text-gray-500">
+                          <Users className="w-4 h-4 mr-1" />
+                          {course.students} students
+                        </div>
+                        <Button variant="outline" className="text-[#22c55e] border-[#22c55e] hover:bg-[#f0fdf4]">
+                          Continue
+                        </Button>
+                      </div>
                     </CardContent>
-                    <CardFooter>
-                      <Button className="w-full bg-[#22c55e] hover:bg-[#16a34a] text-white">Continue Learning</Button>
-                    </CardFooter>
                   </Card>
                 ))}
             </div>
           </TabsContent>
 
-          <TabsContent value="recommended">
+          <TabsContent value="recommended" className="space-y-4">
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {recommendedCourses.map((course) => (
                 <Card key={course.title} className="border-none shadow-sm hover:shadow-md transition-all">
@@ -293,8 +323,8 @@ export default function CoursesPage() {
                       <PlayCircle className="w-12 h-12 text-[#22c55e]" />
                     </div>
                   </div>
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between mb-4">
                       <Badge className="bg-[#f0fdf4] text-[#22c55e] hover:bg-[#dcfce7] border-[#bbf7d0]">
                         {course.level}
                       </Badge>
@@ -303,11 +333,9 @@ export default function CoursesPage() {
                         {course.duration}
                       </div>
                     </div>
-                    <CardTitle className="text-xl">{course.title}</CardTitle>
-                    <CardDescription>{course.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center gap-2">
+                    <h3 className="text-xl font-semibold mb-2">{course.title}</h3>
+                    <p className="text-sm text-gray-500 mb-4">{course.description}</p>
+                    <div className="flex items-center gap-2 mb-4">
                       <Avatar className="w-6 h-6">
                         <AvatarImage src={course.instructor.avatar} alt={course.instructor.name} />
                         <AvatarFallback className="bg-[#f0fdf4] text-[#22c55e]">
@@ -316,15 +344,22 @@ export default function CoursesPage() {
                       </Avatar>
                       <span className="text-sm font-medium">{course.instructor.name}</span>
                     </div>
-                    <div className="mt-4 p-3 bg-[#f0fdf4] rounded-md">
-                      <p className="text-sm">
-                        <span className="font-medium text-[#22c55e]">Recommended:</span> {course.recommendationReason}
-                      </p>
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-center justify-between text-sm">
+                        <span>Recommended because:</span>
+                        <span className="font-medium text-[#22c55e]">{course.recommendationReason}</span>
+                      </div>
+                    </div>
+                    <div className="flex justify-between items-center pt-4 border-t">
+                      <div className="flex items-center text-sm text-gray-500">
+                        <Users className="w-4 h-4 mr-1" />
+                        {course.students} students
+                      </div>
+                      <Button variant="outline" className="text-[#22c55e] border-[#22c55e] hover:bg-[#f0fdf4]">
+                        Start Course
+                      </Button>
                     </div>
                   </CardContent>
-                  <CardFooter>
-                    <Button className="w-full bg-[#22c55e] hover:bg-[#16a34a] text-white">Enroll Now</Button>
-                  </CardFooter>
                 </Card>
               ))}
             </div>

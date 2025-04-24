@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
@@ -9,76 +9,118 @@ import { Calendar, Clock, Filter, MessageSquare, Search, Star } from "lucide-rea
 // Move data outside component to prevent recreation on each render
 const mentors = [
   {
+    id: 1,
     name: "Vikram Mehta",
     role: "Senior Electrical Engineer",
-    avatar: "/placeholder.svg?height=64&width=64",
+    company: "PowerGrid Solutions",
+    experience: "15 years",
+    expertise: ["Industrial Electrical Systems", "Safety Protocols", "Project Management"],
+    availability: "Mon-Fri, 9AM-5PM",
+    rating: 4.9,
+    reviews: 128,
+    avatar: "/placeholder.svg?height=24&width=24",
     initials: "VM",
-    skills: ["Electrical", "Solar", "Automation"],
-    bio: "15+ years of experience in electrical engineering with expertise in renewable energy systems. Passionate about mentoring the next generation of engineers.",
-    rating: "4.9",
-    reviews: 124,
-    availability: "Mon, Wed, Fri",
-    status: "online",
+    bio: "With over 15 years of experience in electrical engineering, I specialize in industrial electrical systems and safety protocols. I've mentored over 200 apprentices in their journey to becoming certified electricians.",
+    achievements: [
+      "Certified Master Electrician",
+      "Industrial Safety Expert",
+      "Project Management Professional"
+    ],
   },
   {
-    name: "Priya Sharma",
-    role: "Manufacturing Specialist",
-    avatar: "/placeholder.svg?height=64&width=64",
-    initials: "PS",
-    skills: ["Manufacturing", "Quality Control", "Lean"],
-    bio: "Manufacturing expert with experience at major automotive companies. Specializes in quality control and lean manufacturing processes.",
-    rating: "4.7",
-    reviews: 98,
-    availability: "Tue, Thu, Sat",
-    status: "offline",
-  },
-  {
-    name: "Rajesh Kumar",
-    role: "Construction Manager",
-    avatar: "/placeholder.svg?height=64&width=64",
-    initials: "RK",
-    skills: ["Construction", "Project Management", "Safety"],
-    bio: "Construction professional with 20+ years of experience managing large-scale infrastructure projects across India.",
-    rating: "4.8",
-    reviews: 156,
-    availability: "Weekdays",
-    status: "online",
-  },
-  {
-    name: "Ananya Patel",
-    role: "HVAC Technician",
-    avatar: "/placeholder.svg?height=64&width=64",
-    initials: "AP",
-    skills: ["HVAC", "Refrigeration", "Maintenance"],
-    bio: "Certified HVAC technician with expertise in commercial and industrial cooling systems. Passionate about hands-on training.",
-    rating: "4.6",
-    reviews: 87,
-    availability: "Weekends",
-    status: "offline",
-  },
-  {
+    id: 2,
     name: "Sunil Verma",
-    role: "Automotive Mechanic",
-    avatar: "/placeholder.svg?height=64&width=64",
+    role: "Industrial Maintenance Expert",
+    company: "TechMach Industries",
+    experience: "12 years",
+    expertise: ["Equipment Maintenance", "Process Optimization", "Team Leadership"],
+    availability: "Mon-Wed, 10AM-6PM",
+    rating: 4.8,
+    reviews: 95,
+    avatar: "/placeholder.svg?height=24&width=24",
     initials: "SV",
-    skills: ["Automotive", "Diagnostics", "Engine Repair"],
-    bio: "Master mechanic with specialization in engine diagnostics and repair. Former trainer at Maruti Suzuki technical academy.",
-    rating: "4.9",
-    reviews: 203,
-    availability: "Flexible",
-    status: "online",
+    bio: "As an industrial maintenance expert with 12 years of experience, I focus on helping apprentices develop practical skills in equipment maintenance and process optimization. My goal is to create the next generation of maintenance leaders.",
+    achievements: [
+      "Certified Maintenance Manager",
+      "Lean Six Sigma Black Belt",
+      "Technical Training Specialist"
+    ],
   },
   {
+    id: 3,
+    name: "Rajesh Kumar",
+    role: "Construction Project Director",
+    company: "BuildRight Constructions",
+    experience: "18 years",
+    expertise: ["Project Management", "Construction Planning", "Quality Control"],
+    availability: "Tue-Thu, 11AM-7PM",
+    rating: 4.9,
+    reviews: 156,
+    avatar: "/placeholder.svg?height=24&width=24",
+    initials: "RK",
+    bio: "With nearly two decades in construction management, I mentor aspiring project managers in developing their leadership and technical skills. I believe in hands-on learning and real-world project experience.",
+    achievements: [
+      "Project Management Professional",
+      "Construction Safety Expert",
+      "Quality Management Specialist"
+    ],
+  },
+  {
+    id: 4,
     name: "Meera Joshi",
-    role: "Plumbing Specialist",
-    avatar: "/placeholder.svg?height=64&width=64",
-    initials: "MJ",
-    skills: ["Plumbing", "Pipefitting", "Water Systems"],
-    bio: "Expert plumber with experience in residential and commercial projects. Advocates for women in skilled trades.",
-    rating: "4.8",
+    role: "Master Plumber",
+    company: "WaterWorks Solutions",
+    experience: "14 years",
+    expertise: ["Modern Plumbing Systems", "Water Conservation", "Team Management"],
+    availability: "Mon-Fri, 8AM-4PM",
+    rating: 4.7,
     reviews: 112,
-    availability: "Mon-Thu",
-    status: "offline",
+    avatar: "/placeholder.svg?height=24&width=24",
+    initials: "MJ",
+    bio: "As a master plumber with 14 years of experience, I'm passionate about teaching the next generation of plumbing professionals. I specialize in modern plumbing systems and sustainable water management practices.",
+    achievements: [
+      "Master Plumber Certification",
+      "Green Building Specialist",
+      "Technical Training Instructor"
+    ],
+  },
+  {
+    id: 5,
+    name: "Arjun Singh",
+    role: "Welding Specialist",
+    company: "MetalCraft Industries",
+    experience: "10 years",
+    expertise: ["Precision Welding", "Metal Fabrication", "Quality Assurance"],
+    availability: "Wed-Fri, 9AM-5PM",
+    rating: 4.8,
+    reviews: 87,
+    avatar: "/placeholder.svg?height=24&width=24",
+    initials: "AS",
+    bio: "With a decade of experience in precision welding, I mentor apprentices in developing their technical skills and attention to detail. I believe in combining traditional techniques with modern technology.",
+    achievements: [
+      "Certified Welding Inspector",
+      "Precision Welding Specialist",
+      "Quality Control Expert"
+    ],
+  },
+  {
+    id: 6,
+    name: "Ananya Patel",
+    role: "HVAC Systems Expert",
+    company: "ClimateControl Systems",
+    experience: "11 years",
+    expertise: ["System Design", "Energy Efficiency", "Technical Troubleshooting"],
+    availability: "Mon-Thu, 10AM-6PM",
+    rating: 4.7,
+    reviews: 103,
+    avatar: "/placeholder.svg?height=24&width=24",
+    initials: "AP",
+    bio: "As an HVAC systems expert, I focus on teaching apprentices about energy-efficient system design and maintenance. I'm passionate about sustainable climate control solutions and technical innovation.",
+    achievements: [
+      "HVAC Excellence Certification",
+      "Energy Efficiency Specialist",
+      "Technical Training Coordinator"
+    ],
   },
 ]
 
@@ -96,7 +138,7 @@ export default function MentorsPage() {
               <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
               <Input
                 placeholder="Search by name, skill, or industry"
-                className="pl-9 bg-white border-none shadow-sm w-full"
+                className="pl-9 bg-white border-none shadow-sm w-full text-black"
               />
             </div>
             <Button variant="outline" className="gap-2 text-white border-white hover:bg-[#16a34a]">
@@ -128,9 +170,7 @@ export default function MentorsPage() {
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {mentors.map((mentor) => (
                 <Card key={mentor.name} className="border-none shadow-sm hover:shadow-md transition-all">
-                  <CardHeader className="p-0">
-                    <div className="h-20 bg-gradient-to-r from-[#16a34a] to-[#22c55e]" />
-                  </CardHeader>
+                  <div className="h-20 bg-gradient-to-r from-[#16a34a] to-[#22c55e]" />
                   <CardContent className="p-5">
                     <div className="flex items-start gap-4">
                       <Avatar className="w-16 h-16 border-4 border-white -mt-12 shadow-sm">
@@ -138,8 +178,8 @@ export default function MentorsPage() {
                         <AvatarFallback className="bg-[#f0fdf4] text-[#22c55e]">{mentor.initials}</AvatarFallback>
                       </Avatar>
                       <div className="space-y-1">
-                        <CardTitle>{mentor.name}</CardTitle>
-                        <CardDescription>{mentor.role}</CardDescription>
+                        <h3 className="text-lg font-semibold">{mentor.name}</h3>
+                        <p className="text-sm text-gray-500">{mentor.role}</p>
                         <div className="flex items-center gap-1 pt-1">
                           <Star className="w-4 h-4 fill-[#22c55e] text-[#22c55e]" />
                           <span className="text-sm font-medium">{mentor.rating}</span>
@@ -150,7 +190,7 @@ export default function MentorsPage() {
                     <div className="mt-4">
                       <h4 className="text-sm font-medium mb-2">Expertise</h4>
                       <div className="flex flex-wrap gap-1">
-                        {mentor.skills.map((skill) => (
+                        {mentor.expertise.map((skill) => (
                           <Badge
                             key={skill}
                             className="text-xs bg-[#f0fdf4] text-[#22c55e] hover:bg-[#dcfce7] border-[#bbf7d0]"
@@ -163,14 +203,14 @@ export default function MentorsPage() {
                     <div className="mt-4 text-sm">
                       <p className="line-clamp-3 text-gray-600">{mentor.bio}</p>
                     </div>
-                  </CardContent>
-                  <CardFooter className="flex justify-between p-5 pt-0">
-                    <div className="flex items-center text-sm text-gray-500">
-                      <Calendar className="w-4 h-4 mr-1 text-[#22c55e]" />
-                      <span>Available: {mentor.availability}</span>
+                    <div className="flex justify-between items-center mt-4 pt-4 border-t">
+                      <div className="flex items-center text-sm text-gray-500">
+                        <Calendar className="w-4 h-4 mr-1 text-[#22c55e]" />
+                        <span>Available: {mentor.availability}</span>
+                      </div>
+                      <Button className="bg-[#22c55e] hover:bg-[#16a34a] text-white">View Profile</Button>
                     </div>
-                    <Button className="bg-[#22c55e] hover:bg-[#16a34a] text-white">View Profile</Button>
-                  </CardFooter>
+                  </CardContent>
                 </Card>
               ))}
             </div>
@@ -191,47 +231,42 @@ export default function MentorsPage() {
 
           <TabsContent value="available">
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {mentors
-                .filter((mentor) => mentor.status === "online")
-                .map((mentor) => (
-                  <Card key={mentor.name} className="border-none shadow-sm hover:shadow-md transition-all">
-                    <CardHeader className="p-0">
-                      <div className="h-20 bg-gradient-to-r from-[#16a34a] to-[#22c55e]" />
-                    </CardHeader>
-                    <CardContent className="p-5">
-                      <div className="flex items-start gap-4">
-                        <div className="relative">
-                          <Avatar className="w-16 h-16 border-4 border-white -mt-12 shadow-sm">
-                            <AvatarImage src={mentor.avatar} alt={mentor.name} />
-                            <AvatarFallback className="bg-[#f0fdf4] text-[#22c55e]">{mentor.initials}</AvatarFallback>
-                          </Avatar>
-                          <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-white" />
-                        </div>
-                        <div className="space-y-1">
-                          <CardTitle>{mentor.name}</CardTitle>
-                          <CardDescription>{mentor.role}</CardDescription>
-                          <div className="flex items-center gap-1 pt-1">
-                            <Star className="w-4 h-4 fill-[#22c55e] text-[#22c55e]" />
-                            <span className="text-sm font-medium">{mentor.rating}</span>
-                            <span className="text-xs text-gray-500">({mentor.reviews} reviews)</span>
-                          </div>
+              {mentors.map((mentor) => (
+                <Card key={mentor.name} className="border-none shadow-sm hover:shadow-md transition-all">
+                  <div className="h-20 bg-gradient-to-r from-[#16a34a] to-[#22c55e]" />
+                  <CardContent className="p-5">
+                    <div className="flex items-start gap-4">
+                      <div className="relative">
+                        <Avatar className="w-16 h-16 border-4 border-white -mt-12 shadow-sm">
+                          <AvatarImage src={mentor.avatar} alt={mentor.name} />
+                          <AvatarFallback className="bg-[#f0fdf4] text-[#22c55e]">{mentor.initials}</AvatarFallback>
+                        </Avatar>
+                        <div className="absolute bottom-0 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-white" />
+                      </div>
+                      <div className="space-y-1">
+                        <h3 className="text-lg font-semibold">{mentor.name}</h3>
+                        <p className="text-sm text-gray-500">{mentor.role}</p>
+                        <div className="flex items-center gap-1 pt-1">
+                          <Star className="w-4 h-4 fill-[#22c55e] text-[#22c55e]" />
+                          <span className="text-sm font-medium">{mentor.rating}</span>
+                          <span className="text-xs text-gray-500">({mentor.reviews} reviews)</span>
                         </div>
                       </div>
-                      <div className="mt-4">
-                        <h4 className="text-sm font-medium mb-2">Expertise</h4>
-                        <div className="flex flex-wrap gap-1">
-                          {mentor.skills.map((skill) => (
-                            <Badge
-                              key={skill}
-                              className="text-xs bg-[#f0fdf4] text-[#22c55e] hover:bg-[#dcfce7] border-[#bbf7d0]"
-                            >
-                              {skill}
-                            </Badge>
-                          ))}
-                        </div>
+                    </div>
+                    <div className="mt-4">
+                      <h4 className="text-sm font-medium mb-2">Expertise</h4>
+                      <div className="flex flex-wrap gap-1">
+                        {mentor.expertise.map((skill) => (
+                          <Badge
+                            key={skill}
+                            className="text-xs bg-[#f0fdf4] text-[#22c55e] hover:bg-[#dcfce7] border-[#bbf7d0]"
+                          >
+                            {skill}
+                          </Badge>
+                        ))}
                       </div>
-                    </CardContent>
-                    <CardFooter className="flex justify-between p-5 pt-0">
+                    </div>
+                    <div className="flex justify-between items-center mt-4 pt-4 border-t">
                       <div className="flex items-center text-sm text-green-500 font-medium">
                         <Clock className="w-4 h-4 mr-1" />
                         <span>Available now</span>
@@ -240,9 +275,10 @@ export default function MentorsPage() {
                         <MessageSquare className="w-4 h-4 mr-2" />
                         Chat Now
                       </Button>
-                    </CardFooter>
-                  </Card>
-                ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </TabsContent>
         </Tabs>
