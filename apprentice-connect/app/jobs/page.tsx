@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -141,147 +142,81 @@ const jobs = [
 ]
 
 export default function JobsPage() {
+  const [query, setQuery] = useState("")
+
+  const filteredJobs = jobs.filter(job =>
+    job.title.toLowerCase().includes(query.toLowerCase()) ||
+    job.company.toLowerCase().includes(query.toLowerCase()) ||
+    job.location.toLowerCase().includes(query.toLowerCase())
+  )
+
   return (
     <>
-      {/* Header */}
-      <div className="bg-[#22c55e] text-white p-8">
-        <div className="max-w-5xl mx-auto">
-          <h1 className="text-3xl font-bold">Find Your Next Opportunity</h1>
-          <p className="mt-2 text-green-100">Discover job opportunities in skilled trades and technical fields</p>
-
-          <div className="flex flex-col md:flex-row gap-4 mt-6">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+      <header className="bg-gradient-to-r from-green-600 to-green-400 text-white py-10">
+        <div className="max-w-5xl mx-auto text-center px-4">
+          <h1 className="text-4xl font-extrabold">Find Your Next Opportunity</h1>
+          <p className="mt-2 text-lg opacity-90">Discover job opportunities in skilled trades and technical fields</p>
+          <div className="flex flex-col md:flex-row gap-4 mt-8 justify-center">
+            <div className="relative w-full md:w-2/3">
+              <Search className="absolute left-4 top-4 h-5 w-5 text-gray-300" />
               <Input
-                placeholder="Search by job title, company, or location"
-                className="pl-9 bg-white border-none shadow-sm w-full text-black"
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+                placeholder="Search by title, company, or location"
+                className="pl-12 pr-4 py-3 rounded-full bg-white text-gray-800 shadow-lg"
               />
             </div>
-            <Button variant="outline" className="gap-2 text-white border-white hover:bg-[#16a34a]">
-              <Filter className="w-4 h-4" />
-              Filters
+            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-green-600 rounded-full px-6">
+              <Filter className="w-5 h-5 mr-2" />Filters
             </Button>
           </div>
         </div>
-      </div>
+      </header>
 
-      <div className="max-w-5xl mx-auto p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Job Card 1 */}
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
-                  <span className="text-2xl">🏢</span>
+      <main className="container mx-auto p-8">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredJobs.map(job => (
+            <Card key={job.id} className="rounded-xl overflow-hidden transform hover:-translate-y-1 hover:shadow-xl transition-all">
+              <div className="h-24 bg-gradient-to-r from-green-500 to-green-700" />
+              <CardContent className="pt-8 px-6 pb-6">
+                <div className="flex items-center gap-4 mb-4">
+                  <img
+                    src={job.recruiter.avatar}
+                    alt={job.recruiter.name}
+                    className="w-12 h-12 rounded-full border-2 border-white -mt-8 shadow-md"
+                  />
+                  <div>
+                    <h3 className="text-xl font-semibold">{job.title}</h3>
+                    <p className="text-sm text-gray-500">{job.company}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold">Junior Web Developer</h3>
-                  <p className="text-sm text-gray-600">Tech Solutions Inc.</p>
+                <div className="space-y-2 mb-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-green-600" />{job.location}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Briefcase className="w-4 h-4 text-green-600" />{job.type}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Building2 className="w-4 h-4 text-green-600" />{job.salary}
+                  </div>
                 </div>
-              </div>
-              <div className="space-y-2 mb-4">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <MapPin size={16} />
-                  <span>London, UK</span>
+                <p className="text-gray-700 mb-4 text-sm line-clamp-3">{job.description}</p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {job.requirements.map(req => (
+                    <span key={req} className="px-2 py-1 bg-green-50 text-green-700 rounded-full text-xs">
+                      {req}
+                    </span>
+                  ))}
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Briefcase size={16} />
-                  <span>Full-time</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Building2 size={16} />
-                  <span>Hybrid</span>
-                </div>
-              </div>
-              <p className="text-gray-600 mb-4">
-                Looking for a motivated junior web developer to join our growing team. Experience with React and Node.js preferred.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">React</span>
-                <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">Node.js</span>
-                <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-sm">JavaScript</span>
-              </div>
-              <Button className="w-full">Apply Now</Button>
-            </CardContent>
-          </Card>
-
-          {/* Job Card 2 */}
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
-                  <span className="text-2xl">💻</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold">UI/UX Designer</h3>
-                  <p className="text-sm text-gray-600">Creative Designs Ltd</p>
-                </div>
-              </div>
-              <div className="space-y-2 mb-4">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <MapPin size={16} />
-                  <span>Manchester, UK</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Briefcase size={16} />
-                  <span>Part-time</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Building2 size={16} />
-                  <span>Remote</span>
-                </div>
-              </div>
-              <p className="text-gray-600 mb-4">
-                Seeking a creative UI/UX designer to help shape our digital products. Experience with Figma and user research required.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Figma</span>
-                <span className="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">UI/UX</span>
-                <span className="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-sm">Design</span>
-              </div>
-              <Button className="w-full">Apply Now</Button>
-            </CardContent>
-          </Card>
-
-          {/* Job Card 3 */}
-          <Card>
-            <CardContent className="p-6">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
-                  <span className="text-2xl">📊</span>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold">Data Analyst</h3>
-                  <p className="text-sm text-gray-600">Data Insights Co</p>
-                </div>
-              </div>
-              <div className="space-y-2 mb-4">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <MapPin size={16} />
-                  <span>Birmingham, UK</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Briefcase size={16} />
-                  <span>Full-time</span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Building2 size={16} />
-                  <span>On-site</span>
-                </div>
-              </div>
-              <p className="text-gray-600 mb-4">
-                Join our data team to help analyze and visualize business metrics. Strong Python and SQL skills required.
-              </p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">Python</span>
-                <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">SQL</span>
-                <span className="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">Data Analysis</span>
-              </div>
-              <Button className="w-full">Apply Now</Button>
-            </CardContent>
-          </Card>
+                <Button className="w-full bg-green-600 hover:bg-green-500 text-white rounded-full py-2">
+                  Apply Now
+                </Button>
+              </CardContent>
+            </Card>
+          ))}
         </div>
-      </div>
+      </main>
     </>
   )
 }
